@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>მონობორბალი - პოსტის გენერატორი</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1f1f1f, #3a3a3a);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .form-container, .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 30px;
+      width: 320px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .form-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 12px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .card h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .info-block {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 10px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s;
+    }
+
+    .info-block:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .info-block img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .info-block span {
+      font-size: 18px;
+    }
+
+    .watermark {
+      margin-top: 20px;
+      font-size: 12px;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <input type="text" id="model" placeholder="მოდელის სახელი">
+  <input type="text" id="weight" placeholder="წონა (კგ)">
+  <input type="text" id="speed" placeholder="სიჩქარე (კმ/სთ)">
+  <input type="text" id="battery" placeholder="ელემენტის ზომა (ვტს)">
+  <input type="text" id="price" placeholder="ფასი (₾)">
+  <button onclick="generateCard()">პოსტის შექმნა</button>
+</div>
+
+<div class="card" id="resultCard" style="display:none;">
+  <h2 id="modelName">Model Name</h2>
+
+  <div class="info-block">
+    <img src="icons/weight.png" alt="Weight Icon">
+    <span id="weightInfo">წონა: 30 კგ</span>
+  </div>
+
+  <div class="info-block">
+    <img src="icons/speed.png" alt="Speed Icon">
+    <span id="speedInfo">სიჩქარე: 70 კმ/სთ</span>
+  </div>
+
+  <div class="info-block">
+    <img src="icons/battery.png" alt="Battery Icon">
+    <span id="batteryInfo">ელემენტის ზომა: 2400 ვტს</span>
+  </div>
+
+  <div class="info-block">
+    <img src="icons/price.png" alt="Price Icon">
+    <span id="priceInfo">ფასი: 6500 ₾</span>
+  </div>
+
+  <div class="watermark">შექმნილია მონობორბალი გენერატორით</div>
+</div>
+
+<script>
+  function generateCard() {
+    const model = document.getElementById('model').value;
+    const weight = document.getElementById('weight').value;
+    const speed = document.getElementById('speed').value;
+    const battery = document.getElementById('battery').value;
+    const price = document.getElementById('price').value;
+
+    document.getElementById('modelName').innerText = model || 'Model Name';
+    document.getElementById('weightInfo').innerText = 'წონა: ' + (weight || '30') + ' კგ';
+    document.getElementById('speedInfo').innerText = 'სიჩქარე: ' + (speed || '70') + ' კმ/სთ';
+    document.getElementById('batteryInfo').innerText = 'ელემენტის ზომა: ' + (battery || '2400') + ' ვტს';
+    document.getElementById('priceInfo').innerText = 'ფასი: ' + (price || '6500') + ' ₾';
+
+    document.getElementById('resultCard').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
