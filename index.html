@@ -91,6 +91,7 @@
   <input type="text" id="weight" placeholder="წონა (კგ)">
   <input type="text" id="speed" placeholder="სიჩქარე (კმ/სთ)">
   <input type="text" id="battery" placeholder="ელემენტის ზომა (ვტს)">
+  <input type="text" id="distance" placeholder="მანძილი ერთ დატენვაზე (კმ)">
   <input type="text" id="price" placeholder="ფასი (₾)">
   <button onclick="generateCard()">პოსტის შექმნა</button>
 </div>
@@ -114,6 +115,11 @@
   </div>
 
   <div class="info-block">
+    <img src="road.png" alt="Distance Icon">
+    <span id="distanceInfo">მანძილი: 100 კმ</span>
+  </div>
+
+  <div class="info-block">
     <img src="icons/price.png" alt="Price Icon">
     <span id="priceInfo">ფასი: 6500 ₾</span>
   </div>
@@ -127,12 +133,14 @@
     const weight = document.getElementById('weight').value;
     const speed = document.getElementById('speed').value;
     const battery = document.getElementById('battery').value;
+    const distance = document.getElementById('distance').value;
     const price = document.getElementById('price').value;
 
     document.getElementById('modelName').innerText = model || 'Model Name';
     document.getElementById('weightInfo').innerText = 'წონა: ' + (weight || '30') + ' კგ';
     document.getElementById('speedInfo').innerText = 'სიჩქარე: ' + (speed || '70') + ' კმ/სთ';
     document.getElementById('batteryInfo').innerText = 'ელემენტის ზომა: ' + (battery || '2400') + ' ვტს';
+    document.getElementById('distanceInfo').innerText = 'მანძილი: ' + (distance || '100') + ' კმ';
     document.getElementById('priceInfo').innerText = 'ფასი: ' + (price || '6500') + ' ₾';
 
     document.getElementById('resultCard').style.display = 'block';
