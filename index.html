@@ -27,7 +27,7 @@
       margin-bottom: 20px;
     }
 
-    .form-container input {
+    .form-container input[type="text"] {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -46,6 +46,21 @@
       font-size: 16px;
       cursor: pointer;
       margin-top: 10px;
+    }
+
+    .form-container .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .form-container .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      cursor: pointer;
     }
 
     .card h2 {
@@ -68,12 +83,10 @@
       background: rgba(255, 255, 255, 0.15);
     }
 
-    .info-block img, .info-block svg {
+    .info-block img {
       width: 24px;
       height: 24px;
-      filter: none;
-      fill: currentColor;
-      color: white;
+      filter: brightness(0) invert(1);
     }
 
     .info-block span {
@@ -90,6 +103,14 @@
 <body>
 
 <div class="form-container">
+  <div class="radio-group">
+    <label><input type="radio" name="brand" value="Inmotion"> Inmotion</label>
+    <label><input type="radio" name="brand" value="Leaperkim"> Leaperkim</label>
+    <label><input type="radio" name="brand" value="Kingsong"> Kingsong</label>
+    <label><input type="radio" name="brand" value="Begode"> Begode</label>
+    <label><input type="radio" name="brand" value="Extreme Bull"> Extreme Bull</label>
+    <label><input type="radio" name="brand" value="Nosfet"> Nosfet</label>
+  </div>
   <input type="text" id="model" placeholder="მოდელის სახელი">
   <input type="text" id="weight" placeholder="წონა (კგ)">
   <input type="text" id="speed" placeholder="სიჩქარე (კმ/სთ)">
