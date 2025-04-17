@@ -99,6 +99,13 @@
       font-size: 12px;
       opacity: 0.5;
     }
+
+    .card.screenshot-mode {
+      background: #2e2e2e !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      border: 2px solid #555;
+    }
   </style>
 </head>
 <body>
@@ -180,11 +187,14 @@
 
   function downloadAsImage() {
     const card = document.getElementById('resultCard');
-    html2canvas(card, {backgroundColor: null}).then(canvas => {
+    card.classList.add('screenshot-mode');
+
+    html2canvas(card, {backgroundColor: null, useCORS: true, scale: 2}).then(canvas => {
       const link = document.createElement('a');
       link.download = 'monoborbali-card.png';
       link.href = canvas.toDataURL();
       link.click();
+      card.classList.remove('screenshot-mode');
     });
   }
 </script>
