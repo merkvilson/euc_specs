@@ -27,7 +27,23 @@
       margin-bottom: 20px;
     }
 
-    .form-container input[type="text"] {
+    .form-container .model-row {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .form-container .model-row select,
+    .form-container .model-row input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .form-container input:not(.model-row input),
+    .form-container select:not(.model-row select) {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -36,7 +52,7 @@
       font-size: 16px;
     }
 
-    .form-container button {
+    .form-container button, .download-button {
       width: 100%;
       padding: 12px;
       background: #4caf50;
@@ -46,21 +62,6 @@
       font-size: 16px;
       cursor: pointer;
       margin-top: 10px;
-    }
-
-    .form-container .radio-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .form-container .radio-group label {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 14px;
-      cursor: pointer;
     }
 
     .card h2 {
@@ -103,21 +104,26 @@
 <body>
 
 <div class="form-container">
-  <div class="radio-group">
-    <label><input type="radio" name="brand" value="Inmotion"> Inmotion</label>
-    <label><input type="radio" name="brand" value="Leaperkim"> Leaperkim</label>
-    <label><input type="radio" name="brand" value="Kingsong"> Kingsong</label>
-    <label><input type="radio" name="brand" value="Begode"> Begode</label>
-    <label><input type="radio" name="brand" value="Extreme Bull"> Extreme Bull</label>
-    <label><input type="radio" name="brand" value="Nosfet"> Nosfet</label>
+  <div class="model-row">
+    <select id="brand">
+      <option value="Inmotion">Inmotion</option>
+      <option value="Leaperkim">Leaperkim</option>
+      <option value="Kingsong">Kingsong</option>
+      <option value="Begode">Begode</option>
+      <option value="Extreme Bull">Extreme Bull</option>
+      <option value="Nosfet">Nosfet</option>
+    </select>
+
+    <input type="text" id="model" placeholder="მოდელის სახელი">
   </div>
-  <input type="text" id="model" placeholder="მოდელის სახელი">
+
   <input type="text" id="weight" placeholder="წონა (კგ)">
   <input type="text" id="speed" placeholder="სიჩქარე (კმ/სთ)">
   <input type="text" id="battery" placeholder="ელემენტის ზომა (ვტს)">
   <input type="text" id="distance" placeholder="მანძილი ერთ დატენვაზე (კმ)">
   <input type="text" id="price" placeholder="ფასი (₾)">
   <button onclick="generateCard()">პოსტის შექმნა</button>
+  <button class="download-button" onclick="downloadAsImage()">ჩამოტვირთე PNG</button>
 </div>
 
 <div class="card" id="resultCard" style="display:none;">
@@ -151,8 +157,10 @@
   <div class="watermark">შექმნილია მონობორბალი გენერატორით</div>
 </div>
 
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
   function generateCard() {
+    const brand = document.getElementById('brand').value;
     const model = document.getElementById('model').value;
     const weight = document.getElementById('weight').value;
     const speed = document.getElementById('speed').value;
@@ -160,14 +168,24 @@
     const distance = document.getElementById('distance').value;
     const price = document.getElementById('price').value;
 
-    document.getElementById('modelName').innerText = model || 'Model Name';
-    document.getElementById('weightInfo').innerText = 'წონა: ' + (weight || '30') + ' კგ';
-    document.getElementById('speedInfo').innerText = 'სიჩქარე: ' + (speed || '70') + ' კმ/სთ';
-    document.getElementById('batteryInfo').innerText = 'ელემენტის ზომა: ' + (battery || '2400') + ' ვტს';
-    document.getElementById('distanceInfo').innerText = 'მანძილი: ' + (distance || '100') + ' კმ';
-    document.getElementById('priceInfo').innerText = 'ფასი: ' + (price || '6500') + ' ₾';
+    document.getElementById('modelName').innerText = (brand || 'უცნობი') + ' ' + (model || 'უცნობი');
+    document.getElementById('weightInfo').innerText = 'წონა: ' + (weight || 'უცნობი');
+    document.getElementById('speedInfo').innerText = 'სიჩქარე: ' + (speed || 'უცნობი');
+    document.getElementById('batteryInfo').innerText = 'ელემენტის ზომა: ' + (battery || 'უცნობი');
+    document.getElementById('distanceInfo').innerText = 'მანძილი: ' + (distance || 'უცნობი');
+    document.getElementById('priceInfo').innerText = 'ფასი: ' + (price || 'უცნობი');
 
     document.getElementById('resultCard').style.display = 'block';
+  }
+
+  function downloadAsImage() {
+    const card = document.getElementById('resultCard');
+    html2canvas(card, {backgroundColor: null}).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'monoborbali-card.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    });
   }
 </script>
 
