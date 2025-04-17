@@ -68,10 +68,12 @@
       background: rgba(255, 255, 255, 0.15);
     }
 
-    .info-block svg {
+    .info-block img, .info-block svg {
       width: 24px;
       height: 24px;
+      filter: none;
       fill: currentColor;
+      color: white;
     }
 
     .info-block span {
@@ -101,27 +103,27 @@
   <h2 id="modelName">Model Name</h2>
 
   <div class="info-block">
-    <svg viewBox="0 0 24 24"><path d="M5 4v2H3v2h2v2h2V8h2V6H7V4H5zm2 4h2v2H7V8zm10-6h2v2h-2V2zm0 4h2v14h-2V6z"/></svg>
+    <img src="icons/weight.svg" alt="Weight Icon">
     <span id="weightInfo">წონა: 30 კგ</span>
   </div>
 
   <div class="info-block">
-    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9h2a5 5 0 0 1 10 0h2c0-3.87-3.13-7-7-7z"/></svg>
+    <img src="icons/speed.svg" alt="Speed Icon">
     <span id="speedInfo">სიჩქარე: 70 კმ/სთ</span>
   </div>
 
   <div class="info-block">
-    <svg viewBox="0 0 24 24"><path d="M16 4h-1V2h-6v2H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>
+    <img src="icons/battery.svg" alt="Battery Icon">
     <span id="batteryInfo">ელემენტის ზომა: 2400 ვტს</span>
   </div>
 
   <div class="info-block">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10h10V12C22 6.48 17.52 2 12 2z"/></svg>
+    <img src="icons/range.svg" alt="Range Icon">
     <span id="distanceInfo">მანძილი: 100 კმ</span>
   </div>
 
   <div class="info-block">
-    <svg viewBox="0 0 24 24"><path d="M12 4C9.79 4 8 5.79 8 8c0 2.21 1.79 4 4 4s4-1.79 4-4c0-2.21-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+    <img src="icons/price.svg" alt="Price Icon">
     <span id="priceInfo">ფასი: 6500 ₾</span>
   </div>
 
