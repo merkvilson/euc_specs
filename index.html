@@ -33,6 +33,7 @@
       margin: 10px 0;
     }
 
+    .form-container .model-row select,
     .form-container .model-row input {
       flex: 1;
       padding: 10px;
@@ -112,7 +113,14 @@
 
 <div class="form-container">
   <div class="model-row">
-    <input type="text" id="brand" placeholder="ბრენდი">
+    <select id="brand">
+      <option value="Inmotion">Inmotion</option>
+      <option value="Leaperkim">Leaperkim</option>
+      <option value="Nosfet">Nosfet</option>
+      <option value="Kingsong">Kingsong</option>
+      <option value="Begode">Begode</option>
+      <option value="Extreme Bull">Extreme Bull</option>
+    </select>
     <input type="text" id="model" placeholder="მოდელი">
   </div>
 
@@ -186,7 +194,7 @@
 
   <div class="info-block">
     <img src="icons/raindrops.svg" alt="IP Icon">
-    <span id="ipInfo">დაცვა: უცნობი</span>
+    <span id="ipInfo">წყლისგან დაცვა: უცნობი</span>
   </div>
 
   <div class="watermark">შექმნილია მონობორბალი გენერატორით</div>
@@ -219,7 +227,7 @@
     document.getElementById('chargeFastInfo').innerText = 'სწრაფი დამუხტვა: ' + (chargeFast ? chargeFast + ' სთ' : 'უცნობი');
     document.getElementById('priceInfo').innerText = 'ფასი: ' + (price ? price + ' $' : 'უცნობი');
     document.getElementById('loadInfo').innerText = 'დატვირთვა: ' + (load ? load + ' კგ' : 'უცნობი');
-    document.getElementById('ipInfo').innerText = 'დაცვა: ' + (ip || 'უცნობი');
+    document.getElementById('ipInfo').innerText = 'წყლისგან დაცვა: ' + (ip || 'უცნობი');
 
     document.getElementById('resultCard').style.display = 'block';
   }
