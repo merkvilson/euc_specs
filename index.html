@@ -216,7 +216,7 @@
     const load = document.getElementById('load').value;
     const ip = document.getElementById('ip').value;
 
-    document.getElementById('modelName').innerText = model || 'უცნობი';
+    document.getElementById('modelName').innerText = (brand && model) ? brand + ' ' + model : model || 'უცნობი';
     document.getElementById('brandInfo').innerText = 'ბრენდი: ' + (brand || 'უცნობი');
     document.getElementById('weightInfo').innerText = 'წონა: ' + (weight ? weight + ' კგ' : 'უცნობი');
     document.getElementById('speedInfo').innerText = 'სიჩქარე: ' + (speed ? speed + ' კმ/სთ' : 'უცნობი');
