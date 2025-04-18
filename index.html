@@ -33,7 +33,6 @@
       margin: 10px 0;
     }
 
-    .form-container .model-row select,
     .form-container .model-row input {
       flex: 1;
       padding: 10px;
@@ -42,8 +41,8 @@
       font-size: 16px;
     }
 
-    .form-container input:not(.model-row input),
-    .form-container select:not(.model-row select) {
+    .form-container input,
+    .form-container select {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -67,6 +66,7 @@
     .card h2 {
       font-size: 24px;
       margin-bottom: 20px;
+      word-break: break-word;
     }
 
     .info-block {
@@ -112,32 +112,37 @@
 
 <div class="form-container">
   <div class="model-row">
-    <select id="brand">
-      <option value="Inmotion">Inmotion</option>
-      <option value="Leaperkim">Leaperkim</option>
-      <option value="Kingsong">Kingsong</option>
-      <option value="Begode">Begode</option>
-      <option value="Extreme Bull">Extreme Bull</option>
-      <option value="Nosfet">Nosfet</option>
-    </select>
-
-    <input type="text" id="model" placeholder="მოდელის სახელი">
+    <input type="text" id="brand" placeholder="ბრენდი">
+    <input type="text" id="model" placeholder="მოდელი">
   </div>
 
+  <input type="text" id="price" placeholder="ფასი (დოლარი $)">
   <input type="text" id="weight" placeholder="წონა (კგ)">
   <input type="text" id="speed" placeholder="სიჩქარე (კმ/სთ)">
-  <input type="text" id="battery" placeholder="ელემენტის მოცულობა (Wh)">
-  <input type="text" id="voltage" placeholder="ელემენტის ვოლტაჟი (V)">
+  <input type="text" id="battery" placeholder="ელემენტი (Wh)">
+  <input type="text" id="voltage" placeholder="ვოლტაჟი (V)">
   <input type="text" id="distance" placeholder="მანძილი ერთ დატენვაზე (კმ)">
-  <input type="text" id="chargeStandard" placeholder="სტანდარტული დატენვის დრო (სთ)">
-  <input type="text" id="chargeFast" placeholder="სწრაფი დატენვის დრო (სთ)">
-  <input type="text" id="price" placeholder="ფასი (დოლარი $)">
+  <input type="text" id="chargeStandard" placeholder="დამუხტვა (სთ)">
+  <input type="text" id="chargeFast" placeholder="სწრაფი დამუხტვა (სთ)">
+  <input type="text" id="load" placeholder="მაქსიმალური დატვირთვა (კგ)">
+  <input type="text" id="ip" placeholder="წყლისგან დაცვა (IP)">
+
   <button onclick="generateCard()">პოსტის შექმნა</button>
   <button class="download-button" onclick="downloadAsImage()">ჩამოტვირთე PNG</button>
 </div>
 
 <div class="card" id="resultCard" style="display:none;">
   <h2 id="modelName">Model Name</h2>
+
+  <div class="info-block">
+    <img src="icons/brand.svg" alt="Brand Icon">
+    <span id="brandInfo">ბრენდი: უცნობი</span>
+  </div>
+
+  <div class="info-block">
+    <img src="icons/price.svg" alt="Price Icon">
+    <span id="priceInfo">ფასი: უცნობი</span>
+  </div>
 
   <div class="info-block">
     <img src="icons/weight.svg" alt="Weight Icon">
@@ -151,12 +156,12 @@
 
   <div class="info-block">
     <img src="icons/battery.svg" alt="Battery Icon">
-    <span id="batteryInfo">ელემენტის მოცულობა: უცნობი</span>
+    <span id="batteryInfo">ელემენტი: უცნობი</span>
   </div>
 
   <div class="info-block">
     <img src="icons/volt.svg" alt="Voltage Icon">
-    <span id="voltageInfo">ელემენტის ვოლტაჟი: უცნობი</span>
+    <span id="voltageInfo">ვოლტაჟი: უცნობი</span>
   </div>
 
   <div class="info-block">
@@ -166,17 +171,22 @@
 
   <div class="info-block">
     <img src="icons/clock.svg" alt="Charge Time Icon">
-    <span id="chargeStandardInfo">სტანდარტული დატენვის დრო: უცნობი</span>
+    <span id="chargeStandardInfo">დამუხტვა: უცნობი</span>
   </div>
 
   <div class="info-block">
     <img src="icons/time-fast.svg" alt="Fast Charge Icon">
-    <span id="chargeFastInfo">სწრაფი დატენვის დრო: უცნობი</span>
+    <span id="chargeFastInfo">სწრაფი დამუხტვა: უცნობი</span>
   </div>
 
   <div class="info-block">
-    <img src="icons/price.svg" alt="Price Icon">
-    <span id="priceInfo">ფასი: უცნობი</span>
+    <img src="icons/rider_weight.svg" alt="Load Icon">
+    <span id="loadInfo">დატვირთვა: უცნობი</span>
+  </div>
+
+  <div class="info-block">
+    <img src="icons/raindrops.svg" alt="IP Icon">
+    <span id="ipInfo">დაცვა: უცნობი</span>
   </div>
 
   <div class="watermark">შექმნილია მონობორბალი გენერატორით</div>
@@ -195,22 +205,31 @@
     const chargeStandard = document.getElementById('chargeStandard').value;
     const chargeFast = document.getElementById('chargeFast').value;
     const price = document.getElementById('price').value;
+    const load = document.getElementById('load').value;
+    const ip = document.getElementById('ip').value;
 
-    document.getElementById('modelName').innerText = (brand || 'უცნობი') + ' ' + (model || 'უცნობი');
-    document.getElementById('weightInfo').innerText = 'წონა: ' + (weight || 'უცნობი');
-    document.getElementById('speedInfo').innerText = 'სიჩქარე: ' + (speed || 'უცნობი');
-    document.getElementById('batteryInfo').innerText = 'ელემენტის მოცულობა: ' + (battery || 'უცნობი');
-    document.getElementById('voltageInfo').innerText = 'ელემენტის ვოლტაჟი: ' + (voltage || 'უცნობი');
-    document.getElementById('distanceInfo').innerText = 'მანძილი: ' + (distance || 'უცნობი');
-    document.getElementById('chargeStandardInfo').innerText = 'სტანდარტული დატენვის დრო: ' + (chargeStandard || 'უცნობი');
-    document.getElementById('chargeFastInfo').innerText = 'სწრაფი დატენვის დრო: ' + (chargeFast || 'უცნობი');
-    document.getElementById('priceInfo').innerText = 'ფასი: ' + (price || 'უცნობი');
+    document.getElementById('modelName').innerText = model || 'უცნობი';
+    document.getElementById('brandInfo').innerText = 'ბრენდი: ' + (brand || 'უცნობი');
+    document.getElementById('weightInfo').innerText = 'წონა: ' + (weight ? weight + ' კგ' : 'უცნობი');
+    document.getElementById('speedInfo').innerText = 'სიჩქარე: ' + (speed ? speed + ' კმ/სთ' : 'უცნობი');
+    document.getElementById('batteryInfo').innerText = 'ელემენტი: ' + (battery ? battery + ' Wh' : 'უცნობი');
+    document.getElementById('voltageInfo').innerText = 'ვოლტაჟი: ' + (voltage ? voltage + ' V' : 'უცნობი');
+    document.getElementById('distanceInfo').innerText = 'მანძილი: ' + (distance ? distance + ' კმ' : 'უცნობი');
+    document.getElementById('chargeStandardInfo').innerText = 'დამუხტვა: ' + (chargeStandard ? chargeStandard + ' სთ' : 'უცნობი');
+    document.getElementById('chargeFastInfo').innerText = 'სწრაფი დამუხტვა: ' + (chargeFast ? chargeFast + ' სთ' : 'უცნობი');
+    document.getElementById('priceInfo').innerText = 'ფასი: ' + (price ? price + ' $' : 'უცნობი');
+    document.getElementById('loadInfo').innerText = 'დატვირთვა: ' + (load ? load + ' კგ' : 'უცნობი');
+    document.getElementById('ipInfo').innerText = 'დაცვა: ' + (ip || 'უცნობი');
 
     document.getElementById('resultCard').style.display = 'block';
   }
 
   function downloadAsImage() {
+    const button = document.querySelector('.download-button');
     const card = document.getElementById('resultCard');
+
+    button.innerText = 'ინახება...';
+    button.disabled = true;
     card.classList.add('screenshot-mode');
 
     html2canvas(card, {backgroundColor: null, useCORS: true, scale: 2}).then(canvas => {
@@ -218,7 +237,14 @@
       link.download = 'monoborbali-card.png';
       link.href = canvas.toDataURL();
       link.click();
+
+      button.innerText = 'შენახულია ✅';
       card.classList.remove('screenshot-mode');
+
+      setTimeout(() => {
+        button.innerText = 'ჩამოტვირთე PNG';
+        button.disabled = false;
+      }, 2000);
     });
   }
 </script>
